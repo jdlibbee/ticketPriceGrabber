@@ -15,9 +15,24 @@ var database = firebase.database();
 
 
 //onclick function
-$("#search").on("click", function () {
+$("#search").on("click", function (event) {
 
-})
+
+    event.preventDefault();
+
+
+    var artistName = $("#artistSearch").val().trim();
+
+
+
+    database.ref().push({
+        artistName: artistName,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP,
+    });
+
+    youtubeResponse(artistName);
+
+});
 
 
 //spotify function
@@ -80,3 +95,28 @@ $.ajax({
     };
 });
 
+//YouTube section
+
+function youtubeResponse(artistName) {
+
+    var queryURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=5&q=${artistName}&key=AIzaSyBeCwFnkkp4dfqchIwcEIMuueNGfREt3lo`;
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })
+        .then(function (response) {
+
+            if (response == null || response.items.length < 1) {
+                // change html to display a message showing no videos for the artist searched.
+                return;
+            }
+
+
+
+            $("#ytplayer").attr('src', "https://www.youtube.com/embed/" + response.items[0].id.videoId + "?autoplay=1")
+            $("#ytplayer2").attr('src', "https://www.youtube.com/embed/" + response.items[1].id.videoId + "?autoplay=1")
+            $("#ytplayer3").attr('src', "https://www.youtube.com/embed/" + response.items[2].id.videoId + "?autoplay=1")
+
+        });
+}
