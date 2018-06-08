@@ -71,10 +71,9 @@ $.ajax({
             "<td> " + response.events[i].venue.name + " </td>" +
             "<td> " + response.events[i].venue.state + " </td>" +
             "<td> " + response.events[i].datetime_local + " </td>" +
-            "<td>" + "$ " + response.events[i].stats.average_price + "</td>"
-            // "<td></td>" +
-
-            // "</tr>"
+            "<td>" + "$ " + response.events[i].stats.average_price + "</td>" +
+            "<td>" + "<button>" + "Get Tickets" + "</button" + "</td>" +
+            "</tr>"
 
         )
     };
