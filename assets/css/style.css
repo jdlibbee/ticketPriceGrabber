@@ -75,3 +75,17 @@ margin-left: 7px;
 #starIcon:hover { 
     color: slategray;
 }
+
+#seatGeekCard {
+    background-color: #3d8ce0;
+}
+
+#ticketTable {
+    color: white;
+}
+
+#seatGeekLogo {
+    width: 208px;
+    height: 43px;
+    margin-bottom: 15px;
+}
