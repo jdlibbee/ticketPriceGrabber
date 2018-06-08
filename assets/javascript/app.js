@@ -29,7 +29,7 @@ $("#search").on("click", function (event) {
         artistName: artistName,
         dateAdded: firebase.database.ServerValue.TIMESTAMP,
     });
-
+    seatGeek(artistName);
     youtubeResponse(artistName);
 
 });
@@ -60,40 +60,45 @@ $("#search").on("click", function (event) {
 
 
 //SeatGeek Section
-var artist = "metallica";
-var replace = artist.replace(" ", "-");
-console.log(artist);
-var queryURL = "https://api.seatgeek.com/2/events?performers.slug=" + replace + "&client_id=MTE4MzAzNjZ8MTUyODI1MDQ4OS4xOA";
+function seatGeek(artistName) {
 
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function (response) {
-    for (var i = 1; i < response.events.length; i++) {
+    var newName = artistName.replace(" ", "-");
 
-        // console.log(response);
-        console.log("date/time: " + response.events[i].datetime_local);
-        console.log("venue name: " + response.events[i].venue.name);
-        console.log("venue state: " + response.events[i].venue.state);
-        console.log("url: " + response.events[i].url);
-        console.log("average price: " + response.events[i].stats.average_price);
+    // var replace = artist.replace(" ", "-");
+    // console.log(artist);
+    var queryURL = "https://api.seatgeek.com/2/events?performers.slug=" + newName + "&client_id=MTE4MzAzNjZ8MTUyODI1MDQ4OS4xOA";
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        $("#ticketTable").empty();
+        for (var i = 1; i < response.events.length; i++) {
+
+            // console.log(response);
+            // console.log("date/time: " + response.events[i].datetime_local);
+            // console.log("venue name: " + response.events[i].venue.name);
+            // console.log("venue state: " + response.events[i].venue.state);
+            // console.log("url: " + response.events[i].url);
+            // console.log("average price: " + response.events[i].stats.average_price);
 
 
 
-        $('#ticketTable').append(
-            "<tr>" +
+            $('#ticketTable').append(
+                "<tr>" +
 
-            "<td> " + response.events[i].venue.name + " </td>" +
-            "<td> " + response.events[i].venue.state + " </td>" +
-            "<td> " + response.events[i].datetime_local + " </td>" +
-            "<td>" + "$ " + response.events[i].stats.average_price + "</td>" +
-            "<td>" + "<button>" + "Get Tickets" + "</button" + "</td>" +
-            "</tr>"
+                "<td> " + response.events[i].venue.name + " </td>" +
+                "<td> " + response.events[i].venue.state + " </td>" +
+                "<td> " + response.events[i].datetime_local + " </td>" +
+                "<td>" + "$ " + response.events[i].stats.average_price + "</td>" +
+                "<td>" + "<button>" + "Get Tickets" + "</button" + "</td>" +
+                "</tr>"
 
-        )
-    };
-});
+            )
 
+        };
+    });
+}
 //YouTube section
 
 function youtubeResponse(artistName) {
