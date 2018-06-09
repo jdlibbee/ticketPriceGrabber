@@ -66,6 +66,7 @@
 
                 </div>
                 <button type="submit" class="btn btn-secondary ml-2" id="search">Search</button>
+                <button type="submit" class="btn btn-secondary ml-2" id="favorites">Add to Favorites</button>
             </form>
         </div>
         <div class="col-md-5">
@@ -84,7 +85,7 @@
         <div class="col-md-5">
             <div class="card text-center">
                 <div class="card-header">
-                    Spotify Section
+                    <img src="assets/images/spotify.png" id="spotifyLogo">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title" id="artist">Spotify Section</h5>
@@ -100,12 +101,13 @@
         <div class="col-md-5">
             <div class="card text-center">
                 <div class="card-header">
-                    Youtube Section
+                    <img src="assets/images/youTube.png" id="youTubeLogo">
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="youTubeBody">
                     <h5 class="card-title">Youtube Section</h5>
-                    <p class="card-text">This is a placeholder for the youtube data that we will be bringing in through the API. You can add any
-                        divs neccessary to populate the data within this card.</p>
+                    <!-- <iframe id="ytplayer" type="text/html" width="300" height="300" src="" frameborder="0"></iframe> -->
+                    <!-- <iframe id="ytplayer2" type="text/html" width="300" height="300" src="" frameborder="0"></iframe>
+                    <iframe id="ytplayer3" type="text/html" width="300" height="300" src="" frameborder="0"></iframe> -->
 
                 </div>
                 <div class="card-footer text-muted">
@@ -120,13 +122,25 @@
         <div class="col-md-10">
             <div class="card text-center">
                 <div class="card-header">
-                    Ticket Section
+                    <img src="assets/images/seatGeek.png" id="seatGeekLogo">
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">Ticket Section</h5>
-                    <p class="card-text">This is a placeholder for the youtube data that we will be bringing in through the API. You can add any
-                        divs neccessary to populate the data within this card.</p>
+                <div class="card-body" id="seatGeekCard">
 
+
+                    <table class="table" id="ticketHead">
+                        <thead>
+                            <tr>
+                                <th>Venue</th>
+                                <th>Location</th>
+                                <th>Date</th>
+                                <th>Average Price</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="ticketTable">
+
+                        </tbody>
+                    </table>
                 </div>
                 <div class="card-footer text-muted">
 
