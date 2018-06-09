@@ -107,29 +107,35 @@ function seatGeek(artistName) {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
+        console.log(response.events)
         $("#ticketTable").empty();
-        for (var i = 1; i < response.events.length; i++) {
 
-            // console.log(response);
-            // console.log("date/time: " + response.events[i].datetime_local);
-            // console.log("venue name: " + response.events[i].venue.name);
-            // console.log("venue state: " + response.events[i].venue.state);
-            // console.log("url: " + response.events[i].url);
-            // console.log("average price: " + response.events[i].stats.average_price);
-
-
-
+        if (response.events.length === 0) {
             $('#ticketTable').append(
                 "<tr>" +
-                "<td> " + response.events[i].venue.name + " </td>" +
-                "<td> " + response.events[i].venue.state + " </td>" +
-                "<td> " + response.events[i].datetime_local + " </td>" +
-                "<td>" + "$ " + response.events[i].stats.average_price + "</td>" +
-                "<td>" + "<button>" + "Get Tickets" + "</button" + "</td>" +
-                "</tr>"
+                "<td> " + "No results Found." + " </td>")
+        } else {
 
-            )
+            for (var i = 0; i < response.events.length; i++) {
+                // console.log(response);
+                // console.log("date/time: " + response.events[i].datetime_local);
+                // console.log("venue name: " + response.events[i].venue.name);
+                // console.log("venue state: " + response.events[i].venue.state);
+                // console.log("url: " + response.events[i].url);
+                // console.log("average price: " + response.events[i].stats.average_price);
 
+
+                $('#ticketTable').append(
+                    "<tr>" +
+                    "<td> " + "<a href=" + response.events[i].venue.url + " target=\"blank\" id=\"venueLinks\">" + response.events[i].venue.name + "</a>" + " </td>" +
+                    "<td> " + response.events[i].venue.state + " </td>" +
+                    "<td> " + response.events[i].datetime_local.slice(0, -9) + " </td>" +
+                    "<td>" + "$ " + response.events[i].stats.average_price + "</td>" +
+                    "<td>" + "<button> <a href=" + response.events[i].url + " target=\"blank\">Get Tickets</a> </button>" + "</td>" +
+                    "</tr>"
+
+                )
+            }
         };
     });
 }
@@ -163,3 +169,4 @@ function youtubeResponse(artistName) {
 
         });
 }
+
