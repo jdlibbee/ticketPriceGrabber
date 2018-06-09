@@ -34,6 +34,41 @@ $("#search").on("click", function (event) {
 
 });
 
+// $("#favorites").on("click", function (event) {
+
+
+//     event.preventDefault();
+
+
+//     var artistName = $("#artistSearch").val().trim();
+
+
+
+//     database.ref().push({
+//         artistName: artistName,
+//         dateAdded: firebase.database.ServerValue.TIMESTAMP,
+//     });
+
+//     addToFavorites(artistName);
+// });
+
+// function addToFavorites(artistName) {
+//     var queryURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=5&q=${artistName}&key=AIzaSyBeCwFnkkp4dfqchIwcEIMuueNGfREt3lo`;
+
+//     $.ajax({
+//         url: queryURL,
+//         method: "GET"
+//     })
+//         .then(function (response) {
+
+
+//             console.log(response);
+//             $("#favoriteBody").append("<img id=\"favorite-img\" src=\"\" alt=\"\">" + "<p>" + artistName + "</p>");
+//             $("#favorite-img").attr('src', response.items[0].snippet.thumbnails.medium.url);
+//             $("#favorite-img").attr('alt', artistName);
+//         });
+
+// }
 
 //spotify function
 // function spotify() {
@@ -86,7 +121,6 @@ function seatGeek(artistName) {
 
             $('#ticketTable').append(
                 "<tr>" +
-
                 "<td> " + response.events[i].venue.name + " </td>" +
                 "<td> " + response.events[i].venue.state + " </td>" +
                 "<td> " + response.events[i].datetime_local + " </td>" +
@@ -115,12 +149,17 @@ function youtubeResponse(artistName) {
                 // change html to display a message showing no videos for the artist searched.
                 return;
             }
+            $("#youTubeBody").empty();
 
+            $("#youTubeBody").append("<iframe id=\"yt-player\" type=\"text/html\" width=\"100%\" height=\"350px\" src=\"\" frameborder=\"0\"></iframe>"
+                + "<button type=\"submit\" class=\"btn btn-secondary ml-2\" id=\"next-video\">Next Video</button>");
+            // $("#youTubeBody").append("<iframe id=\"yt-player\" type=\"text/html\" width=\"250\" height=\"250\" src=\"\" frameborder=\"0\"></iframe>"
+            //     + "<iframe id=\"yt-player2\" type=\"text/html\" width=\"250\" height=\"250\" src=\"\" frameborder=\"0\"></iframe>"
+            //     + "<iframe id=\"yt-player3\" type=\"text/html\" width=\"250\" height=\"250\" src=\"\" frameborder=\"0\"></iframe>");
 
-
-            $("#ytplayer").attr('src', "https://www.youtube.com/embed/" + response.items[0].id.videoId + "?autoplay=1")
-            $("#ytplayer2").attr('src', "https://www.youtube.com/embed/" + response.items[1].id.videoId + "?autoplay=1")
-            $("#ytplayer3").attr('src', "https://www.youtube.com/embed/" + response.items[2].id.videoId + "?autoplay=1")
+            $("#yt-player").attr('src', "https://www.youtube.com/embed/" + response.items[0].id.videoId + "?autoplay=1")
+            // $("#yt-player2").attr('src', "https://www.youtube.com/embed/" + response.items[1].id.videoId + "?autoplay=1")
+            // $("#yt-player3").attr('src', "https://www.youtube.com/embed/" + response.items[2].id.videoId + "?autoplay=1")
 
         });
 }
