@@ -34,6 +34,32 @@ $("#search").on("click", function (event) {
 
 });
 
+$("#favorites").on("click", function (event) {
+    event.preventDefault();
+
+
+    var favoriteArtist = $("#artistSearch").val().trim();
+
+
+
+    database.ref().push({
+        favoriteArtist: favoriteArtist,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP,
+    });
+
+
+});
+
+database.ref().on("child_added", function (childSnapshot) {
+
+
+    $("#favoriteBody").append("<div>" + childSnapshot.val().favoriteArtist + "</div>");
+
+
+}, function (errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+});
+
 // $("#favorites").on("click", function (event) {
 
 
@@ -99,8 +125,6 @@ function seatGeek(artistName) {
 
     var newName = artistName.replace(" ", "-");
 
-    // var replace = artist.replace(" ", "-");
-    // console.log(artist);
     var queryURL = "https://api.seatgeek.com/2/events?performers.slug=" + newName + "&client_id=MTE4MzAzNjZ8MTUyODI1MDQ4OS4xOA";
 
     $.ajax({
@@ -108,7 +132,8 @@ function seatGeek(artistName) {
         method: "GET"
     }).then(function (response) {
         $("#ticketTable").empty();
-        for (var i = 1; i < response.events.length; i++) {
+        // console.log(response);
+        for (var i = 0; i < response.events.length; i++) {
 
             // console.log(response);
             // console.log("date/time: " + response.events[i].datetime_local);
@@ -137,29 +162,41 @@ function seatGeek(artistName) {
 
 function youtubeResponse(artistName) {
 
-    var queryURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=5&q=${artistName}&key=AIzaSyBeCwFnkkp4dfqchIwcEIMuueNGfREt3lo`;
+    var queryURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=10&q=${artistName}&key=AIzaSyBeCwFnkkp4dfqchIwcEIMuueNGfREt3lo`;
 
     $.ajax({
         url: queryURL,
         method: "GET"
     })
         .then(function (response) {
-
+            console.log(response);
             if (response == null || response.items.length < 1) {
-                // change html to display a message showing no videos for the artist searched.
+                $("#youTubeBody").html("you suck!"); // change html to display a message showing no videos for the artist searched.
                 return;
             }
             $("#youTubeBody").empty();
 
+            var itemNumber = 0;
             $("#youTubeBody").append("<iframe id=\"yt-player\" type=\"text/html\" width=\"100%\" height=\"350px\" src=\"\" frameborder=\"0\"></iframe>"
                 + "<button type=\"submit\" class=\"btn btn-secondary ml-2\" id=\"next-video\">Next Video</button>");
-            // $("#youTubeBody").append("<iframe id=\"yt-player\" type=\"text/html\" width=\"250\" height=\"250\" src=\"\" frameborder=\"0\"></iframe>"
-            //     + "<iframe id=\"yt-player2\" type=\"text/html\" width=\"250\" height=\"250\" src=\"\" frameborder=\"0\"></iframe>"
-            //     + "<iframe id=\"yt-player3\" type=\"text/html\" width=\"250\" height=\"250\" src=\"\" frameborder=\"0\"></iframe>");
 
-            $("#yt-player").attr('src', "https://www.youtube.com/embed/" + response.items[0].id.videoId + "?autoplay=1")
-            // $("#yt-player2").attr('src', "https://www.youtube.com/embed/" + response.items[1].id.videoId + "?autoplay=1")
-            // $("#yt-player3").attr('src', "https://www.youtube.com/embed/" + response.items[2].id.videoId + "?autoplay=1")
+            $("#yt-player").attr('src', "https://www.youtube.com/embed/" + response.items[itemNumber].id.videoId + "?autoplay=1")
+
+            $("#next-video").on("click", function (event) {
+
+                event.preventDefault();
+                itemNumber++
+                if (itemNumber == 10) {
+                    itemNumber = 0;
+                    $("#yt-player").attr('src', "https://www.youtube.com/embed/" + response.items[itemNumber].id.videoId + "?autoplay=1")
+                }
+                else {
+                    $("#yt-player").attr('src', "https://www.youtube.com/embed/" + response.items[itemNumber].id.videoId + "?autoplay=1")
+                }
+
+
+            });
 
         });
+
 }
