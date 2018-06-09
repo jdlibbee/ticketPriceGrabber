@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-var lookup = "";
-var auth = "";
-//onclick function
-$("#search").on("click", function (event) {
-    event.preventDefault();
-    var search = $("#artistSearch").val().trim();
-    lookup = search;
-    console.log(lookup);
-    console.log(search);
-    $("#artistSearch").attr("placeholder", "Search Artist Name").val("");
-    getAuth();
-=======
 //Firebase
 var config = {
     apiKey: "AIzaSyCqEnzaaYtKA0jk5bRBoCxs0HolhFlOwFA",
@@ -24,6 +11,8 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+var lookup = "";
+var auth = "";
 
 
 
@@ -44,6 +33,11 @@ $("#search").on("click", function (event) {
     });
     seatGeek(artistName);
     youtubeResponse(artistName);
+    lookup = search;
+    $("#artistSearch").attr("placeholder", "Search Artist Name").val("");
+    getAuth();
+
+
 
 });
 
@@ -73,45 +67,8 @@ database.ref().on("child_added", function (childSnapshot) {
     console.log("Errors handled: " + errorObject.code);
 });
 
-// $("#favorites").on("click", function (event) {
-
-
-//     event.preventDefault();
-
-
-//     var artistName = $("#artistSearch").val().trim();
-
-
-
-//     database.ref().push({
-//         artistName: artistName,
-//         dateAdded: firebase.database.ServerValue.TIMESTAMP,
-//     });
-
-//     addToFavorites(artistName);
-// });
->>>>>>> master
-
-// function addToFavorites(artistName) {
-//     var queryURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=5&q=${artistName}&key=AIzaSyBeCwFnkkp4dfqchIwcEIMuueNGfREt3lo`;
-
-//     $.ajax({
-//         url: queryURL,
-//         method: "GET"
-//     })
-//         .then(function (response) {
-
-
-//             console.log(response);
-//             $("#favoriteBody").append("<img id=\"favorite-img\" src=\"\" alt=\"\">" + "<p>" + artistName + "</p>");
-//             $("#favorite-img").attr('src', response.items[0].snippet.thumbnails.medium.url);
-//             $("#favorite-img").attr('alt', artistName);
-//         });
-
-// }
 
 //spotify function
-<<<<<<< HEAD
 function getAuth() {
     var settings = {
         "async": true,
@@ -174,30 +131,6 @@ function getData() {
     })
 
 };
-
-=======
-// function spotify() {
-//     var settings = {
-//         "async": true,
-//         "crossDomain": true,
-//         "url": "https://accounts.spotify.com/api/token",
-//         "method": "POST",
-//         "headers": {
-//             "Content-Type": "application/x-www-form-urlencoded",
-//             "Authorization": "Basic N2ExYjBjZTdiMmI3NDcyNTgxNWQ3OTQ2ZTk3ZGM5MmE6MDUzYjJiZmJjMjg0NDliMWJlNDYzNjViMzEzYWZkZjM=",
-//             "Cache-Control": "no-cache",
-//             "Postman-Token": "1a6ba0e7-3b06-429a-afe8-cbbd11e5997d"
-//         },
-//         "data": {
-//             "grant_type": "client_credentials"
-//         }
-//     }
-
-//     $.ajax(settings).done(function (response) {
-//         console.log(response);
-//     });
-// }
-
 
 //SeatGeek Section
 function seatGeek(artistName) {
@@ -279,4 +212,3 @@ function youtubeResponse(artistName) {
         });
 
 }
->>>>>>> master
