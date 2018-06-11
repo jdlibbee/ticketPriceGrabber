@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Ticket Price Grabber</title>
 
+    <!-- //Google Signin -->
+    <meta name="google-signin-client_id" content="11722166297-eiepigaqjmcg2od8g09oddnae6lgcngu.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <!-- Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
@@ -20,6 +25,8 @@
 </head>
 
 <body>
+
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
     <!-- Side navigation -->
     <div class="sidenav">
@@ -91,7 +98,7 @@
                     <h5 class="card-title" id="artist">Spotify Section</h5>
                     <p class="card-text" id="songs">This is a placeholder for the spotify data that we will be bringing in through the API. You can add any
                         divs neccessary to populate the data within this card.</p>
-
+                    <p class="card-text" id="player"></p>
                 </div>
                 <div class="card-footer text-muted">
 

@@ -54,7 +54,6 @@ $("#favorites").on("click", function (event) {
         dateAdded: firebase.database.ServerValue.TIMESTAMP,
     });
 
-
 });
 
 database.ref().on("child_added", function (childSnapshot) {
@@ -115,13 +114,43 @@ function getData() {
     $.ajax(dataSettings).then(function (searchResults) {
         console.log(searchResults);
 
-        console.log(searchResults.tracks.items);
 
-        $('#artist').html(`<h5 class="card-title">${lookup}</h5>`);
-        $('#songs').html(`<ol class="card-text" id="button" type="1"></ol>`);
-        for (var i = 0; i < searchResults.tracks.items.length; i++) {
-            $('#button').append(`<li><button class="btn btn-light ml-2"><a href="${searchResults.tracks.items[i].preview_url}" target="_blank">${searchResults.tracks.items[i].name}</a></buttion></li>`);
-        }
+
+        $('#artist').html(`<h5 class="card-title" id="artistTitle">${lookup}  <hr></hr></h5>`);
+        $('#songs').html(`<div class="card-text" id="button" type="1"></div><hr></hr>`);
+        $('#player').html(`<iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[0].uri}" width="100%" height="350" frameborder="0" allowtransparency="true"></iframe>`);
+
+        // for (var i = 0; i < searchResults.tracks.items.length; i++) {
+        //     $('#button').append(`<button class="btn btn-light ml-2" id="songButton" data-id="${searchResults.tracks.items[i].uri}">${searchResults.tracks.items[i].name}</buttion>`);
+        // }
+        $('#button').append(`<button class="btn btn-light ml-2" id="buttonOne" data-id="${searchResults.tracks.items[0].uri}">${searchResults.tracks.items[0].name}</buttion>`);
+        $('#button').append(`<button class="btn btn-light ml-2" id="buttonTwo" data-id="${searchResults.tracks.items[1].uri}">${searchResults.tracks.items[1].name}</buttion>`);
+        $('#button').append(`<button class="btn btn-light ml-2" id="buttonThree" data-id="${searchResults.tracks.items[2].uri}">${searchResults.tracks.items[2].name}</buttion>`);
+        $('#button').append(`<button class="btn btn-light ml-2" id="buttonFour" data-id="${searchResults.tracks.items[3].uri}">${searchResults.tracks.items[3].name}</buttion>`);
+        $('#button').append(`<button class="btn btn-light ml-2" id="buttonFive" data-id="${searchResults.tracks.items[4].uri}">${searchResults.tracks.items[4].name}</buttion>`);
+
+        $("#buttonOne").on("click", function (event) {
+            event.preventDefault();
+            $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[0].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
+        })
+        $("#buttonTwo").on("click", function (event) {
+            event.preventDefault();
+            $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[1].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
+        })
+        $("#buttonThree").on("click", function (event) {
+            event.preventDefault();
+            $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[2].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
+        })
+        $("#buttonFour").on("click", function (event) {
+            event.preventDefault();
+            $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[3].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
+        })
+        $("#buttonFive").on("click", function (event) {
+            event.preventDefault();
+            $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[4].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
+        })
+
+
     }).fail(async function (jqXHR, textStatus, errorThrown) {
         alert("Request failed: " + textStatus);
         console.log(errorThrown, jqXHR);
@@ -133,6 +162,9 @@ function getData() {
     })
 
 };
+
+
+
 
 //SeatGeek Section
 function seatGeek(artistName) {
@@ -219,5 +251,7 @@ function youtubeResponse(artistName) {
             });
 
         });
+
+
 
 }
