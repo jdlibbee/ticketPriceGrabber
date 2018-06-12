@@ -81,6 +81,7 @@ function getAuth() {
             "Content-Type": "application/x-www-form-urlencoded",
             "Authorization": "Basic N2ExYjBjZTdiMmI3NDcyNTgxNWQ3OTQ2ZTk3ZGM5MmE6MDUzYjJiZmJjMjg0NDliMWJlNDYzNjViMzEzYWZkZjM=",
             "Access-Control-Allow-Origin": "*",
+            "Accept": "application/json",
             "Cache-Control": "no-cache",
             "Postman-Token": "9db9990f-d2e7-49ed-abbc-a326d861cdb7"
         },
