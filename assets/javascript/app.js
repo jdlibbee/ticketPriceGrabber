@@ -124,7 +124,7 @@ function getData() {
             $('#button').append(`<li><button class="btn btn-light ml-2"><a href="${searchResults.tracks.items[i].preview_url}" target="_blank">${searchResults.tracks.items[i].name}</a></buttion></li>`);
         }
     }).fail(async function (jqXHR, textStatus, errorThrown) {
-        alert("Request failed: " + textStatus);
+        console.log("Request failed: " + textStatus);
         console.log(errorThrown, jqXHR);
         if (jqXHR.status == 401) {
             console.log("hello");
