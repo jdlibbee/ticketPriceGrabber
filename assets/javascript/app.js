@@ -51,6 +51,7 @@ $("#favorites").on("click", function (event) {
     console.log(favoriteArtist);
 
 
+
     database.ref().push({
         favoriteArtist: favoriteArtist,
         dateAdded: firebase.database.ServerValue.TIMESTAMP,
