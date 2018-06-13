@@ -13,7 +13,7 @@ var database = firebase.database();
 
 var lookup = "";
 var auth = "";
-
+var albumImage = "";
 
 
 //onclick function
@@ -34,6 +34,7 @@ $("#search").on("click", function (event) {
     seatGeek(artistName);
     youtubeResponse(artistName);
     lookup = artistName;
+    console.log(lookup);
     $("#artistSearch").attr("placeholder", "Search Artist Name").val("");
     getAuth();
 
@@ -45,28 +46,31 @@ $("#favorites").on("click", function (event) {
     event.preventDefault();
 
 
-    var favoriteArtist = $("#artistSearch").val().trim();
+    var favoriteArtist = lookup;
+    var artistImage = albumImage;
+    console.log(favoriteArtist);
 
 
 
     database.ref().push({
         favoriteArtist: favoriteArtist,
         dateAdded: firebase.database.ServerValue.TIMESTAMP,
+        artistImage: artistImage,
     });
 
 });
 
-database.ref().on("child_added", function (childSnapshot) {
+// database.ref().on("child_added", function (childSnapshot) {
 
-    if (childSnapshot.val().favoriteArtist) {
-        $("#favoriteBody").append("<div>" + childSnapshot.val().favoriteArtist + "</div>");
-    }
+//     if (childSnapshot.val().favoriteArtist) {
+//         $("#favoriteBody").append("<div>" + childSnapshot.val().favoriteArtist + "</div>");
+//     }
 
 
 
-}, function (errorObject) {
-    console.log("Errors handled: " + errorObject.code);
-});
+// }, function (errorObject) {
+//     console.log("Errors handled: " + errorObject.code);
+// });
 
 
 //spotify function
@@ -113,8 +117,9 @@ function getData() {
     console.log("hello2");
     $.ajax(dataSettings).then(function (searchResults) {
         console.log(searchResults);
-
-
+        albumImage = searchResults.tracks.items[0].album.images[1].url;
+        console.log(searchResults.tracks.items[0].album.images[1].url);
+        console.log("Hello 3");
 
         $('#artist').html(`<h5 class="card-title" id="artistTitle">${lookup}  <hr></hr></h5>`);
         $('#songs').html(`<div class="card-text" id="button" type="1"></div><hr></hr>`);
