@@ -1,3 +1,12 @@
+.g-signin2 {
+    margin-left: 20px;
+}
+#userImage {
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+}
+
 /* The sidebar menu */
 .sidenav {
     height: 100%; /* Full-height: remove this if you want "auto" height */
@@ -51,6 +60,13 @@ margin-left: 7px;
     margin-left: 5px;
 }
 
+#signOutIcon {
+    font-size: 45px;
+    color: white;
+    margin-top: 300px;
+    margin-left: 10px;
+}
+
 #homeText {
     font-size: 15px;
     color: white;
@@ -65,6 +81,14 @@ margin-left: 7px;
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
     margin-top: -10px;
+    
+}
+
+#signOutText{
+    font-size: 15px;
+    color: white;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
     
 }
 

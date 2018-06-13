@@ -7,7 +7,7 @@
     <title>Ticket Price Grabber</title>
 
     <!-- //Google Signin -->
-    <meta name="google-signin-client_id" content="11722166297-eiepigaqjmcg2od8g09oddnae6lgcngu.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="11722166297-0kgm1mvm54hj7ea55l1erg8js1ahkh13.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -26,7 +26,26 @@
 
 <body>
 
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Please sign in before using Favorites.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Side navigation -->
     <div class="sidenav">
@@ -42,7 +61,11 @@
         </a>
 
         <p id="starText">Favorites</p>
+        <a href="#" onclick="signOut();">
+            <i class="fa fa-sign-out" id="signOutIcon"></i>
+        </a>
 
+        <p id="signOutText">Sign out</p>
 
 
         <a href="#"></a>
@@ -52,16 +75,24 @@
 
     <!-- Cards to store API data -->
 
-
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-10">
-
+        <div class="col-md-8">
             <h3>Ticket Price Grabber</h3>
-            <hr></hr>
+
+        </div>
+        <div class="col-md-1">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10">
+            <hr></hr>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-1"></div>
@@ -79,7 +110,6 @@
         <div class="col-md-5">
         </div>
     </div>
-
 
     <div class="row">
         <div class="col-md-1"></div>
@@ -158,6 +188,10 @@
 
 
     <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
     <script src="assets/javascript/app.js"></script>
 </body>
 

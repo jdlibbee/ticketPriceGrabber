@@ -11,8 +11,31 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+//Google Auth
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    userLoggedIn = true;
+    var userImage = profile.getImageUrl();
+    $(".g-signin2").html(`<img src=${userImage} id="userImage"></img>`);
+
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+        window.location.reload();
+    });
+}
+
 var lookup = "";
 var auth = "";
+var userLoggedIn = false;
+
 // trying to create url for a favorite click
 // $("document").ready(function () {
 //     var url = window.location.href;
@@ -58,6 +81,18 @@ $("#favorites").on("click", function (event) {
         dateAdded: firebase.database.ServerValue.TIMESTAMP,
         artistImage: artistImage,
     });
+
+});
+
+//Check for login before entering favorites page
+$("#starIcon").on("click", function (event) {
+    event.preventDefault();
+
+    if (userLoggedIn === false) {
+        $("#exampleModal").modal('show');
+    } else {
+        window.open("favorites.html", "_self");
+    }
 
 });
 
