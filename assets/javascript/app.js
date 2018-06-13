@@ -13,6 +13,20 @@ var database = firebase.database();
 
 var lookup = "";
 var auth = "";
+// trying to create url for a favorite click
+// $("document").ready(function () {
+//     var url = window.location.href;
+//     var urlSelections = url.split('?');
+//     if (urlSelections.length > 1) {
+//         var parameter = urlSelections[1].split('=');
+//         if (parameter.length <= 1)
+//             return;
+//         if (parameter[0] != 'artist')
+//             return;
+//     }
+//     var artistName = parameter[1];
+//     getApis(artistName);
+// });
 var albumImage = "";
 
 
@@ -25,20 +39,7 @@ $("#search").on("click", function (event) {
 
     var artistName = $("#artistSearch").val().trim();
 
-
-
-    database.ref().push({
-        artistName: artistName,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP,
-    });
-    seatGeek(artistName);
-    youtubeResponse(artistName);
-    lookup = artistName;
-    console.log(lookup);
-    $("#artistSearch").attr("placeholder", "Search Artist Name").val("");
-    getAuth();
-
-
+    getApis(artistName);
 
 });
 
@@ -60,19 +61,27 @@ $("#favorites").on("click", function (event) {
 
 });
 
-// database.ref().on("child_added", function (childSnapshot) {
+function getApis(artistName) {
 
-//     if (childSnapshot.val().favoriteArtist) {
-//         $("#favoriteBody").append("<div>" + childSnapshot.val().favoriteArtist + "</div>");
-//     }
+    if (artistName === "") {
+        return;
+    }
+    else {
+        database.ref().push({
+            artistName: artistName.toLowerCase(),
+            dateAdded: firebase.database.ServerValue.TIMESTAMP,
+        });
+    }
 
 
+    seatGeek(artistName);
+    youtubeResponse(artistName);
+    lookup = artistName;
+    $("#artistSearch").attr("placeholder", "Search Artist Name").val("");
+    getAuth();
 
-// }, function (errorObject) {
-//     console.log("Errors handled: " + errorObject.code);
-// });
 
-
+}
 //spotify function
 function getAuth() {
     var settings = {
@@ -229,7 +238,7 @@ function youtubeResponse(artistName) {
         .then(function (response) {
             console.log(response);
             if (response == null || response.items.length < 1) {
-                $("#youTubeBody").html("you suck!"); // change html to display a message showing no videos for the artist searched.
+                $("#youTubeBody").html("No video results for your search.");
                 return;
             }
             $("#youTubeBody").empty();
