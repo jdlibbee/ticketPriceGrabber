@@ -15,12 +15,14 @@ var artists = [];
 database.ref().on("child_added", function (childSnapshot) {
     $(document).ready(function () {
 
-        if (childSnapshot.val().favoriteArtist) {
-            $("#favoriteBody").append(`<div class="form-inline justify-content-center" id="favoriteArtist">
-            <img src="${childSnapshot.val().artistImage}" alt="${childSnapshot.val().favoriteArtist}">
-            <h1>${childSnapshot.val().favoriteArtist}</h1>
-            </div>`);
-        }
+        artistCheck();
+
+        // if (childSnapshot.val().favoriteArtist) {
+        //     $("#favoriteBody").append(`<div class="form-inline justify-content-center" id="favoriteArtist">
+        //     <img src="${childSnapshot.val().artistImage}" alt="${childSnapshot.val().favoriteArtist}">
+        //     <h1>${childSnapshot.val().favoriteArtist}</h1>
+        //     </div>`);
+        // }
     })
 
 
@@ -28,3 +30,28 @@ database.ref().on("child_added", function (childSnapshot) {
 }, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
 });
+
+function artistCheck(favoriteArtist) {
+    // Where is letter in word
+    var artistInFb = false;
+
+    for (var i = 0; i < artists.length; i++) {
+        if (childSnapshot.val().favoriteArtist == favoriteArtist) {
+            artistInFb = true;
+        }
+    }
+    // where in letter is the word
+    if (artistInFb) {
+        return;
+    }
+    // Letter wasn't found
+    else {
+        artists.push(favoriteArtist);
+        $("#favoriteBody").append(`<div class="form-inline justify-content-center" id="favoriteArtist">
+            <img src="${childSnapshot.val().artistImage}" alt="${childSnapshot.val().favoriteArtist}">
+            <h1>${childSnapshot.val().favoriteArtist}</h1>
+            </div>`);
+    }
+
+
+}
