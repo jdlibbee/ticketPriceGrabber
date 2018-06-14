@@ -13,7 +13,8 @@ var database = firebase.database();
 var artists = [];
 var userId = '';
 var userLoggedIn = false;
-$(document).ready(function () {
+
+function getFavorites() {
     database.ref('User/' + userId).on("child_added", function (childSnapshot) {
 
         let artist = childSnapshot.val().favoriteArtist;
@@ -35,9 +36,7 @@ $(document).ready(function () {
     }, function (errorObject) {
         console.log("Errors handled: " + errorObject.code);
     });
-
-});
-
+}
 
 function onArtistClicked(event) {
     var artistName = event.currentTarget.innerText;
@@ -61,6 +60,8 @@ function onSignIn(googleUser) {
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+    getFavorites();
 }
 
 function signOut() {

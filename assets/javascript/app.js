@@ -66,7 +66,7 @@ $("#search").on("click", function (event) {
     var artistName = $("#artistSearch").val().trim();
 
     getApis(artistName);
-
+    $("#favorites").show();
 });
 
 $("#favorites").on("click", function (event) {
