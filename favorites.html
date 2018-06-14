@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Favorites</title>
 
+    <meta name="google-signin-client_id" content="11722166297-0kgm1mvm54hj7ea55l1erg8js1ahkh13.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
     <!-- Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
@@ -62,6 +67,9 @@
 
             <h3>Favorites</h3>
             <hr></hr>
+        </div>
+        <div class="col-md-1">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </div>
     </div>
 
