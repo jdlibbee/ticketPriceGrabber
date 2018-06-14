@@ -11,11 +11,14 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+var userId = '';
+
 //Google Auth
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     userLoggedIn = true;
     var userImage = profile.getImageUrl();
+    userId = profile.getId();
     $(".g-signin2").html(`<img src=${userImage} id="userImage"></img>`);
 
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -36,20 +39,20 @@ var lookup = "";
 var auth = "";
 var userLoggedIn = false;
 
-// trying to create url for a favorite click
-// $("document").ready(function () {
-//     var url = window.location.href;
-//     var urlSelections = url.split('?');
-//     if (urlSelections.length > 1) {
-//         var parameter = urlSelections[1].split('=');
-//         if (parameter.length <= 1)
-//             return;
-//         if (parameter[0] != 'artist')
-//             return;
-//     }
-//     var artistName = parameter[1];
-//     getApis(artistName);
-// });
+// // trying to create url for a favorite click
+$("document").ready(function () {
+    var url = window.location.href;
+    var urlSelections = url.split('?');
+    if (urlSelections.length > 1) {
+        var parameter = urlSelections[1].split('=');
+        if (parameter.length <= 1)
+            return;
+        if (parameter[0] != 'artist')
+            return;
+    }
+    var artistName = parameter[1].replace('+', ' ');
+    getApis(artistName);
+});
 var albumImage = "";
 
 
@@ -74,12 +77,14 @@ $("#favorites").on("click", function (event) {
     var artistImage = albumImage;
     console.log(favoriteArtist);
 
+    if (favoriteArtist == '')
+        return;
 
-
-    database.ref().push({
+    database.ref('User/' + userId).push({
         favoriteArtist: favoriteArtist,
         dateAdded: firebase.database.ServerValue.TIMESTAMP,
         artistImage: artistImage,
+        userId: userId,
     });
 
 });
@@ -101,13 +106,6 @@ function getApis(artistName) {
     if (artistName === "") {
         return;
     }
-    else {
-        database.ref().push({
-            artistName: artistName.toLowerCase(),
-            dateAdded: firebase.database.ServerValue.TIMESTAMP,
-        });
-    }
-
 
     seatGeek(artistName);
     youtubeResponse(artistName);

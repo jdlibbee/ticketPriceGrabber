@@ -11,20 +11,62 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 var artists = [];
+var userId = '';
+var userLoggedIn = false;
+$(document).ready(function () {
+    database.ref('User/' + userId).on("child_added", function (childSnapshot) {
 
-database.ref().on("child_added", function (childSnapshot) {
-    $(document).ready(function () {
+        let artist = childSnapshot.val().favoriteArtist;
 
-        if (childSnapshot.val().favoriteArtist) {
-            $("#favoriteBody").append(`<div class="form-inline justify-content-center" id="favoriteArtist">
-            <img src="${childSnapshot.val().artistImage}" alt="${childSnapshot.val().favoriteArtist}">
-            <h1>${childSnapshot.val().favoriteArtist}</h1>
+        if (artist && artists.indexOf(artist) < 0) {
+
+            var artistDiv = $(`<div class="form-inline justify-content-center" id="fav-` + artist.replace(' ', '') + `">
+            <img src="${childSnapshot.val().artistImage}" alt="${artist}">
+            <h1>${artist}</h1>
             </div>`);
+            artistDiv.on("click", onArtistClicked);
+
+            $("#favoriteBody").append(artistDiv);
+
+            artists.push(artist);
+
         }
-    })
 
+    }, function (errorObject) {
+        console.log("Errors handled: " + errorObject.code);
+    });
 
-
-}, function (errorObject) {
-    console.log("Errors handled: " + errorObject.code);
 });
+
+
+function onArtistClicked(event) {
+    var artistName = event.currentTarget.innerText;
+
+    var url = window.location.href;
+
+    var newUrl = url.replace('favorites.html', 'index.html?artist=' + artistName.replace(' ', '+'));
+
+    window.location = newUrl;
+};
+
+//Google Auth
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    userLoggedIn = true;
+    var userImage = profile.getImageUrl();
+    userId = profile.getId();
+    $(".g-signin2").html(`<img src=${userImage} id="userImage"></img>`);
+
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+        window.location.reload();
+    });
+}
