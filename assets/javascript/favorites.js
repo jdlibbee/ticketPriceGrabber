@@ -23,7 +23,6 @@ function getFavorites() {
 
             var artistDiv = $(`<tr id="fav-` + artist.replace(' ', '') + `">
             <td><img src="${childSnapshot.val().artistImage}" alt="${artist}" id="artistImage"><td>
-            <td></td>
             <td><h1 id="artistName">${artist}</h1></td>`);
             artistDiv.on("click", onArtistClicked);
 
