@@ -21,10 +21,13 @@ function getFavorites() {
 
         if (artist && artists.indexOf(artist) < 0) {
 
-            var artistDiv = $(`<div class="form-inline justify-content-center" id="fav-` + artist.replace(' ', '') + `">
-            <img src="${childSnapshot.val().artistImage}" alt="${artist}">
-            <h1>${artist}</h1>
-            </div>`);
+            var artistDiv = $(`<table class="table justify-content-center" id="fav-` + artist.replace(' ', '') + `">
+            <tbody>
+            <tr>
+            <td><img src="${childSnapshot.val().artistImage}" alt="${artist}"><td>
+            <td><h1>${artist}</h1></td>
+            </tbody>
+            </table>`);
             artistDiv.on("click", onArtistClicked);
 
             $("#favoriteBody").append(artistDiv);
