@@ -25,6 +25,7 @@ function getFavorites() {
             <tbody>
             <tr>
             <td><img src="${childSnapshot.val().artistImage}" alt="${artist}"><td>
+            <td></td>
             <td><h1>${artist}</h1></td>
             </tbody>
             </table>`);
