@@ -22,9 +22,9 @@ function getFavorites() {
         if (artist && artists.indexOf(artist.toLowerCase()) < 0) {
 
             var artistDiv = $(`<tr id="fav-` + artist.replace(' ', '') + `">
-            <td><img src="${childSnapshot.val().artistImage}" alt="${artist}"><td>
+            <td><img src="${childSnapshot.val().artistImage}" alt="${artist}" id="artistImage"><td>
             <td></td>
-            <td><h1>${artist}</h1></td>`);
+            <td><h1 id="artistName">${artist}</h1></td>`);
             artistDiv.on("click", onArtistClicked);
 
             $("#faveTable").append(artistDiv);

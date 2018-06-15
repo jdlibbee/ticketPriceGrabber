@@ -130,4 +130,13 @@ margin-left: 7px;
     margin-top: 10px;
 }
 
-
+/* Fave Image spacing */
+#artistImage{
+    float: left;
+    margin-left: 50%;
+}
+#artistName{
+    float: right;
+    margin-right: 50%;
+    margin-top: 50%;
+}
