@@ -19,7 +19,7 @@ function getFavorites() {
 
         let artist = childSnapshot.val().favoriteArtist;
 
-        if (artist && artists.indexOf(artist) < 0) {
+        if (artist && artists.indexOf(artist.toLowerCase()) < 0) {
 
             var artistDiv = $(`<div class="form-inline justify-content-center" id="fav-` + artist.replace(' ', '') + `">
             <img src="${childSnapshot.val().artistImage}" alt="${artist}">
@@ -29,7 +29,7 @@ function getFavorites() {
 
             $("#favoriteBody").append(artistDiv);
 
-            artists.push(artist);
+            artists.push(artist.toLowerCase());
 
         }
 
