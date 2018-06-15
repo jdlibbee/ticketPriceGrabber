@@ -75,117 +75,119 @@
 
     <!-- Cards to store API data -->
 
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
-            <h3>Ticket Price Grabber</h3>
+    <div id="container">
 
-        </div>
-        <div class="col-md-1">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        </div>
-    </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <h3>Ticket Price Grabber</h3>
 
-    <div class="row">
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-10">
-            <hr></hr>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-5">
-            <form class="form-inline mb-2">
-                <div class="form-group">
-
-                    <input type="text" class="form-control" id="artistSearch" placeholder="Search Artist Name">
-
-                </div>
-                <button type="submit" class="btn btn-secondary ml-2" id="search">Search</button>
-                <button type="submit" class="btn btn-secondary ml-2" style="display: none;" id="favorites">Add to Favorites</button>
-            </form>
-        </div>
-        <div class="col-md-5">
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-5">
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-5">
-            <div class="card text-center">
-                <div class="card-header">
-                    <img src="assets/images/spotify.png" id="spotifyLogo">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title" id="artist">Spotify Section</h5>
-                    <p class="card-text" id="songs"></p>
-                    <p class="card-text" id="player"></p>
-                </div>
-                <div class="card-footer text-muted">
-
-                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </div>
         </div>
-        <div class="col-md-5">
-            <div class="card text-center">
-                <div class="card-header">
-                    <img src="assets/images/youTube.png" id="youTubeLogo">
+
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-10">
+                <hr></hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <form class="form-inline mb-2">
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" id="artistSearch" placeholder="Search Artist Name">
+
+                    </div>
+                    <button type="submit" class="btn btn-secondary ml-2" id="search">Search</button>
+                    <button type="submit" class="btn btn-secondary ml-2" style="display: none;" id="favorites">Add to Favorites</button>
+                </form>
+            </div>
+            <div class="col-md-5">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <img src="assets/images/spotify.png" id="spotifyLogo">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" id="artist">Spotify Section</h5>
+                        <p class="card-text" id="songs"></p>
+                        <p class="card-text" id="player"></p>
+                    </div>
+                    <div class="card-footer text-muted">
+
+                    </div>
                 </div>
-                <div class="card-body" id="youTubeBody">
-                    <h5 class="card-title">Youtube Section</h5>
-                    <!-- <iframe id="ytplayer" type="text/html" width="300" height="300" src="" frameborder="0"></iframe> -->
-                    <!-- <iframe id="ytplayer2" type="text/html" width="300" height="300" src="" frameborder="0"></iframe>
+            </div>
+            <div class="col-md-5">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <img src="assets/images/youTube.png" id="youTubeLogo">
+                    </div>
+                    <div class="card-body" id="youTubeBody">
+                        <h5 class="card-title">Youtube Section</h5>
+                        <!-- <iframe id="ytplayer" type="text/html" width="300" height="300" src="" frameborder="0"></iframe> -->
+                        <!-- <iframe id="ytplayer2" type="text/html" width="300" height="300" src="" frameborder="0"></iframe>
                     <iframe id="ytplayer3" type="text/html" width="300" height="300" src="" frameborder="0"></iframe> -->
 
-                </div>
-                <div class="card-footer text-muted">
+                    </div>
+                    <div class="card-footer text-muted">
 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <img src="assets/images/seatGeek.png" id="seatGeekLogo">
+                    </div>
+                    <div class="card-body" id="seatGeekCard">
+
+
+                        <table class="table" id="ticketHead">
+                            <thead>
+                                <tr>
+                                    <th>Venue</th>
+                                    <th>Location</th>
+                                    <th>Date</th>
+                                    <th>Average Price</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="ticketTable">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer text-muted">
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <div class="card text-center">
-                <div class="card-header">
-                    <img src="assets/images/seatGeek.png" id="seatGeekLogo">
-                </div>
-                <div class="card-body" id="seatGeekCard">
-
-
-                    <table class="table" id="ticketHead">
-                        <thead>
-                            <tr>
-                                <th>Venue</th>
-                                <th>Location</th>
-                                <th>Date</th>
-                                <th>Average Price</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="ticketTable">
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer text-muted">
-
-                </div>
-            </div>
-        </div>
     </div>
-    </div>
-
 
     <!-- JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
