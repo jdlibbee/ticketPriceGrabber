@@ -152,14 +152,3 @@ margin-left: 7px;
     margin-top: 10px;
 }
 
-/* Fave Image spacing */
-#artistImage{
-    float: left;
-    margin-left: 25%;
-    margin-top: 5%
-}
-#artistName{
-    float: right;
-    margin-right: 50%;
-    margin-top: 5%;
-}

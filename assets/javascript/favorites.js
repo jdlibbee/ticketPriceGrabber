@@ -23,7 +23,7 @@ function getFavorites() {
 
             var artistDiv = $(`<div class="card" style="width: 18rem; align-self: center; margin-bottom: 20px;" id="fav-` + artist.replace(' ', '') + `">
             <img class="card-img-top" src="${childSnapshot.val().artistImage}" alt="${artist}" id="artistImage">
-            <div class="card-body"><h5 class="card-title" id="artistName">${artist}</h5></div></div>`);
+            <div class="card-body" style"align-self: center;"><h5 class="card-title" id="artistName">${artist}</h5></div></div>`);
             artistDiv.on("click", onArtistClicked);
 
             $("#faveTable").append(artistDiv);
