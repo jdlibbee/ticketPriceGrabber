@@ -1,0 +1,22 @@
+{
+  "name": "project_1",
+  "version": "1.0.0",
+  "description": "Project 1 where we search and hit the Spotify, YouTube, and seatgeek APIs. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdlibbee/ticketPriceGrabber.git"
+  },
+  "author": "Justin Libbee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdlibbee/ticketPriceGrabber/issues"
+  },
+  "homepage": "https://github.com/jdlibbee/ticketPriceGrabber#readme",
+  "dependencies": {
+    "node-spotify-api": "^1.0.7"
+  }
+}

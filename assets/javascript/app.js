@@ -111,102 +111,112 @@ function getApis(artistName) {
     youtubeResponse(artistName);
     lookup = artistName;
     $("#artistSearch").attr("placeholder", "Search Artist Name").val("");
-    getAuth();
+    getData();
 
 
 }
 //spotify function
-function getAuth() {
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://accounts.spotify.com/api/token",
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": "Basic N2ExYjBjZTdiMmI3NDcyNTgxNWQ3OTQ2ZTk3ZGM5MmE6MDUzYjJiZmJjMjg0NDliMWJlNDYzNjViMzEzYWZkZjM=",
-            "Access-Control-Allow-Origin": "*",
-            "Cache-Control": "no-cache",
-            "Postman-Token": "9db9990f-d2e7-49ed-abbc-a326d861cdb7"
-        },
-        "data": {
-            "grant_type": "client_credentials"
-        }
-    }
+var Spotify = require('node-spotify-api');
+var spotify = new Spotify({
+    id: "1bbc8ee86b8b483ca60ab9d68b9ddc43",
+    secret: "f70108a8f06043969109714730a348ab"
+});
+// function getAuth() {
+//     var settings = {
+//         "async": true,
+//         "crossDomain": true,
+//         "url": "https://accounts.spotify.com/api/token",
+//         "method": "POST",
+//         "headers": {
+//             "Content-Type": "application/x-www-form-urlencoded",
+//             "Authorization": "Basic N2ExYjBjZTdiMmI3NDcyNTgxNWQ3OTQ2ZTk3ZGM5MmE6MDUzYjJiZmJjMjg0NDliMWJlNDYzNjViMzEzYWZkZjM=",
+//             "Access-Control-Allow-Origin": "*",
+//             "Cache-Control": "no-cache",
+//             "Postman-Token": "9db9990f-d2e7-49ed-abbc-a326d861cdb7"
+//         },
+//         "data": {
+//             "grant_type": "client_credentials"
+//         }
+//     }
 
-    $.ajax(settings).done(function (authKey) {
-        console.log(authKey);
-        auth = authKey.access_token;
-        console.log("auth = " + auth);
-        getData();
-    });
-}
+//     $.ajax(settings).done(function (authKey) {
+//         console.log(authKey);
+//         auth = authKey.access_token;
+//         console.log("auth = " + auth);
+//         getData();
+//     });
+// }
 // function spotify() {
 //     getData();
 // }
 function getData() {
-    var dataSettings = {
-        "async": true,
-        "crossDomain": true,
-        "url": `https://api.spotify.com/v1/search?q=${lookup}&type=track&market=US&limit=5`,
-        "method": "GET",
-        "headers": {
-            "Authorization": `Bearer  ${auth}`,
-            "Cache-Control": "no-cache",
-            "Postman-Token": "5f5d2a21-2c25-4f8f-9310-fff567e5cdaa"
+    // var dataSettings = {
+    //     "async": true,
+    //     "crossDomain": true,
+    //     "url": `https://api.spotify.com/v1/search?q=${lookup}&type=track&market=US&limit=5`,
+    //     "method": "GET",
+    //     "headers": {
+    //         "Authorization": `Bearer  ${auth}`,
+    //         "Cache-Control": "no-cache",
+    //         "Postman-Token": "5f5d2a21-2c25-4f8f-9310-fff567e5cdaa"
+    //     }
+    // }
+    // console.log("hello2");
+    // $.ajax(dataSettings).then(function (result) {
+    spotify.search({ type: 'track', query: lookup, market: 'US', popularity: 100, limit: 5 }, function (err, result) {
+        if (err) {
+            return console.log("error Occurred: " + err);
+        } else {
+
+            console.log(result);
+            albumImage = result.tracks.items[0].album.images[1].url;
+            console.log(result.tracks.items[0].album.images[1].url);
+            console.log("Hello 3");
+
+            $('#artist').html(`<h5 class="card-title" id="artistTitle">${lookup}  <hr></hr></h5>`);
+            $('#songs').html(`<div class="card-text" id="button" type="1"></div><hr></hr>`);
+            $('#player').html(`<iframe class="song-play" src="https://open.spotify.com/embed?uri=${result.tracks.items[0].uri}" width="100%" height="350" frameborder="0" allowtransparency="true"></iframe>`);
+
+
+            $('#button').append(`<button class="btn btn-light ml-2" id="buttonOne" data-id="${result.tracks.items[0].uri}">${result.tracks.items[0].name}</buttion>`);
+            $('#button').append(`<button class="btn btn-light ml-2" id="buttonTwo" data-id="${result.tracks.items[1].uri}">${result.tracks.items[1].name}</buttion>`);
+            $('#button').append(`<button class="btn btn-light ml-2" id="buttonThree" data-id="${result.tracks.items[2].uri}">${result.tracks.items[2].name}</buttion>`);
+            $('#button').append(`<button class="btn btn-light ml-2" id="buttonFour" data-id="${result.tracks.items[3].uri}">${result.tracks.items[3].name}</buttion>`);
+            $('#button').append(`<button class="btn btn-light ml-2" id="buttonFive" data-id="${result.tracks.items[4].uri}">${result.tracks.items[4].name}</buttion>`);
+
+            $("#buttonOne").on("click", function (event) {
+                event.preventDefault();
+                $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${result.tracks.items[0].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
+            })
+            $("#buttonTwo").on("click", function (event) {
+                event.preventDefault();
+                $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${result.tracks.items[1].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
+            })
+            $("#buttonThree").on("click", function (event) {
+                event.preventDefault();
+                $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${result.tracks.items[2].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
+            })
+            $("#buttonFour").on("click", function (event) {
+                event.preventDefault();
+                $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${result.tracks.items[3].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
+            })
+            $("#buttonFive").on("click", function (event) {
+                event.preventDefault();
+                $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${result.tracks.items[4].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
+            })
         }
-    }
-    console.log("hello2");
-    $.ajax(dataSettings).then(function (searchResults) {
-        console.log(searchResults);
-        albumImage = searchResults.tracks.items[0].album.images[1].url;
-        console.log(searchResults.tracks.items[0].album.images[1].url);
-        console.log("Hello 3");
-
-        $('#artist').html(`<h5 class="card-title" id="artistTitle">${lookup}  <hr></hr></h5>`);
-        $('#songs').html(`<div class="card-text" id="button" type="1"></div><hr></hr>`);
-        $('#player').html(`<iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[0].uri}" width="100%" height="350" frameborder="0" allowtransparency="true"></iframe>`);
-
-        // for (var i = 0; i < searchResults.tracks.items.length; i++) {
-        //     $('#button').append(`<button class="btn btn-light ml-2" id="songButton" data-id="${searchResults.tracks.items[i].uri}">${searchResults.tracks.items[i].name}</buttion>`);
-        // }
-        $('#button').append(`<button class="btn btn-light ml-2" id="buttonOne" data-id="${searchResults.tracks.items[0].uri}">${searchResults.tracks.items[0].name}</buttion>`);
-        $('#button').append(`<button class="btn btn-light ml-2" id="buttonTwo" data-id="${searchResults.tracks.items[1].uri}">${searchResults.tracks.items[1].name}</buttion>`);
-        $('#button').append(`<button class="btn btn-light ml-2" id="buttonThree" data-id="${searchResults.tracks.items[2].uri}">${searchResults.tracks.items[2].name}</buttion>`);
-        $('#button').append(`<button class="btn btn-light ml-2" id="buttonFour" data-id="${searchResults.tracks.items[3].uri}">${searchResults.tracks.items[3].name}</buttion>`);
-        $('#button').append(`<button class="btn btn-light ml-2" id="buttonFive" data-id="${searchResults.tracks.items[4].uri}">${searchResults.tracks.items[4].name}</buttion>`);
-
-        $("#buttonOne").on("click", function (event) {
-            event.preventDefault();
-            $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[0].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
-        })
-        $("#buttonTwo").on("click", function (event) {
-            event.preventDefault();
-            $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[1].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
-        })
-        $("#buttonThree").on("click", function (event) {
-            event.preventDefault();
-            $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[2].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
-        })
-        $("#buttonFour").on("click", function (event) {
-            event.preventDefault();
-            $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[3].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
-        })
-        $("#buttonFive").on("click", function (event) {
-            event.preventDefault();
-            $('#player').html(`<ol class="card-text" id="button" type="1"></ol><hr></hr> <iframe class="song-play" src="https://open.spotify.com/embed?uri=${searchResults.tracks.items[4].uri}" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>`);
-        })
-
-
-    }).fail(async function (jqXHR, textStatus, errorThrown) {
-        alert("Request failed: " + textStatus);
-        console.log(errorThrown, jqXHR);
-        if (jqXHR.status == 401) {
-            console.log("hello");
-            await getAuth();
-            getData();
-        };
     })
+
+
+    // }).fail(async function (jqXHR, textStatus, errorThrown) {
+    //     alert("Request failed: " + textStatus);
+    //     console.log(errorThrown, jqXHR);
+    //     if (jqXHR.status == 401) {
+    //         console.log("hello");
+    //         await getAuth();
+    //         getData();
+    //     };
+    // })
 
 };
 
